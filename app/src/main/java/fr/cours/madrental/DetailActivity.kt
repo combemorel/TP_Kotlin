@@ -2,6 +2,7 @@ package fr.cours.madrental
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
@@ -25,15 +26,16 @@ class DetailActivity : AppCompatActivity() {
         transaction.commit()
 
         val name = intent.getStringExtra("textViewNameVehicule")
+        val image = intent.getStringExtra("img")
         val price = intent.getIntExtra("textViewPriceVehicule",0)
         val category = intent.getStringExtra("textViewCategoryVehicule")
 
-        val text = "Nom : $name \n"+
-                "Prix : $price € / jour \n"+
-                "Catégorie CO2 : $category"
 
         val bundle = Bundle()
-        bundle.putString("text", text)
+        bundle.putString("name", "Nom : $name")
+        bundle.putString("price", "Prix : $price € / jour")
+        bundle.putString("category", "Catégorie CO2 : $category")
+        bundle.putString("img", "$image")
         fragment.arguments = bundle
 
 
@@ -41,15 +43,30 @@ class DetailActivity : AppCompatActivity() {
     fun insertFavori(view : View?)
     {
         val name = intent.getStringExtra("textViewNameVehicule")
+        val image = intent.getStringExtra("img")
         val price = intent.getIntExtra("textViewPriceVehicule",0)
         val category = intent.getStringExtra("textViewCategoryVehicule")
 
-        AppDatabaseHelper.getDatabase(this)
-            .VehiculeDAO()
-            .insert(VehiculeDTO(0,name,price,category))
-        val test = AppDatabaseHelper.getDatabase(this)
-            .VehiculeDAO()
-            .getListeVehicules()
+        if(category != null && name != null && price != 0 && image != null) {
+            val vehicule = AppDatabaseHelper.getDatabase(this)
+                .VehiculeDAO()
+                .getVehicule(name, image, price, category)
+
+            if(vehicule == null)
+            {
+                AppDatabaseHelper.getDatabase(this)
+                    .VehiculeDAO()
+                    .insert(VehiculeDTO(0,name,image,price,category))
+            } else
+            {
+                Toast.makeText(this,"Ce vehicule est déja présent dans vos Favoris",Toast.LENGTH_LONG).show()
+            }
+        }else
+        {
+            Toast.makeText(this,"Un problème est survenue lors de l'envoie",Toast.LENGTH_LONG).show()
+        }
+
+
     }
 
 

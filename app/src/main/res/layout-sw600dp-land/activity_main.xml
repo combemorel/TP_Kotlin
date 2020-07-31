@@ -7,13 +7,13 @@
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="8dp"
         android:id="@+id/list_vehicules"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottom"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/conteneur_fragment"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <LinearLayout
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@id/list_vehicules"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/conteneur_fragment"
         android:gravity="center"
         android:background="#e6e6e6"
 
@@ -44,4 +44,34 @@
 
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_2"
+        app:layout_constraintLeft_toRightOf="@id/list_vehicules"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/conteneur_fragment"
+        />
+
+    <LinearLayout
+        android:id="@+id/bottom_2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="#e6e6e6"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/bottom"
+        app:layout_constraintTop_toBottomOf="@id/conteneur_fragment">
+
+        <Button
+            android:id="@+id/insert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="insertFavori"
+            android:text="Ajouter au favoris" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ class VehiculeDTO (
     @PrimaryKey(autoGenerate = true)
     val vehiculeId: Long = 0,
     val name: String = "",
+    val image: String = "",
     val price: Int = 0 ,
     val category: String = ""
 )
