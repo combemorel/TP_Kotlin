@@ -5,11 +5,13 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
-object ReseauHelper {
-    fun estConnecte(context: Context): Boolean
+object ReseauHelper
+{
+    fun isConnect(context: Context): Boolean
     {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE)
                                             as ConnectivityManager
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             connectivityManager.run { getNetworkCapabilities(activeNetwork)?.run {
@@ -18,7 +20,8 @@ object ReseauHelper {
                         || hasTransport(NetworkCapabilities.TRANSPORT_VPN))
                 }
             }
-        }else
+        }
+        else
         {
             @Suppress("DEPRECATION")
             connectivityManager.run { activeNetworkInfo?.run {

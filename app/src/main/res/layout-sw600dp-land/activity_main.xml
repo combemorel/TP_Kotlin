@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/size_8"
         android:id="@+id/list_vehicules"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -19,7 +19,7 @@
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="@dimen/footer_70"
         app:layout_constraintTop_toBottomOf="@id/list_vehicules"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -39,15 +39,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#010101"
-            android:text="Favoris"
-            android:textSize="16dp"/>
+            android:text="@string/btn_favoris"
+            android:textSize="@dimen/textSize_21"/>
 
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="8dp"
+        android:padding="@dimen/size_8"
         app:layout_constraintBottom_toTopOf="@id/bottom_2"
         app:layout_constraintLeft_toRightOf="@id/list_vehicules"
         app:layout_constraintRight_toRightOf="parent"
@@ -58,8 +58,8 @@
     <LinearLayout
         android:id="@+id/bottom_2"
         android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:background="#e6e6e6"
+        android:layout_height="@dimen/footer_70"
+        android:background="@color/colorFooter"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -72,6 +72,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:onClick="insertFavori"
-            android:text="Ajouter au favoris" />
+            android:text="@string/btn_add_favoris" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

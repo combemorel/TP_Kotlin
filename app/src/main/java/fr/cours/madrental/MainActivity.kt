@@ -20,23 +20,21 @@ class MainActivity : AppCompatActivity()
     private lateinit var vehiculesAdapter: VehiculesAdapter
     private lateinit var listVehiculeWs: MutableList<VehiculeWs>
     private var mainActivity = this
-    private var favori_select: Boolean = false
+    private var favoriSelect: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState != null) {
-            favori_select = savedInstanceState.getBoolean("favori")
+            favoriSelect = savedInstanceState.getBoolean("favori")
         }
         list_vehicules.setHasFixedSize(true)
 
         val layoutManager = LinearLayoutManager(this)
         list_vehicules.layoutManager = layoutManager
-        Log.d("TAG", "$favori_select")
 
-
-        if (ReseauHelper.estConnecte(this))
+        if (ReseauHelper.isConnect(this))
         {
             val service = RetrofitSingleton.retrofit.create(WSInterface::class.java)
             val call = service.wsGet()
@@ -49,44 +47,45 @@ class MainActivity : AppCompatActivity()
                     if (response.isSuccessful)
                     {
                         val retourWSGet = response.body()
+
                         if(retourWSGet != null)
                         {
                             listVehiculeWs = retourWSGet
-                            if(favori_select)
-                            {
+
+                            vehiculesAdapter = if(favoriSelect) {
                                 val listVehiculesDTO: MutableList<VehiculeDTO> = AppDatabaseHelper.getDatabase(mainActivity)
                                     .VehiculeDAO()
                                     .getListeVehicules()
 
-                                vehiculesAdapter = VehiculesAdapter(castList(listVehiculesDTO),mainActivity)
-                            } else {
-                                vehiculesAdapter = VehiculesAdapter(retourWSGet,mainActivity)
-
+                                VehiculesAdapter(castList(listVehiculesDTO),mainActivity)
+                            } else
+                            {
+                                VehiculesAdapter(retourWSGet,mainActivity)
                             }
+
                             list_vehicules.adapter = vehiculesAdapter
                         }
                     }
                 }
+
                 override fun onFailure(call: Call<MutableList<VehiculeWs>>, t: Throwable) {
                     Log.e("tag", "${t.message}")
                 }
             })
         }
-
-
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putBoolean("favori", favori_select)
+    override fun onSaveInstanceState(outState: Bundle)
+    {
+        outState.putBoolean("favori", favoriSelect)
         super.onSaveInstanceState(outState)
-
     }
 
-    fun onShowFavori(view : View?)
+    fun onShowFavori(view: View?)
     {
         if(favori.isChecked)
         {
-            favori_select = true
+            favoriSelect = true
             val listVehiculesDTO: MutableList<VehiculeDTO> = AppDatabaseHelper.getDatabase(this)
                 .VehiculeDAO()
                 .getListeVehicules()
@@ -94,10 +93,9 @@ class MainActivity : AppCompatActivity()
             vehiculesAdapter.updateList(castList(listVehiculesDTO))
         } else
         {
-            favori_select = false
+            favoriSelect = false
             vehiculesAdapter.updateList(listVehiculeWs)
         }
-
     }
 
     fun castList(list: MutableList<VehiculeDTO>): MutableList<VehiculeWs>
@@ -110,7 +108,7 @@ class MainActivity : AppCompatActivity()
         return newList
     }
 
-    fun insertFavori(view : View?)
+    fun insertFavori(view: View?)
     {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
@@ -119,11 +117,12 @@ class MainActivity : AppCompatActivity()
         val price = preferences.getInt("price", 0)
         val category = preferences.getString("category","")
 
-        if(category != null && name != null && price != 0 && image != null){
+        if(category != null && name != null && price != 0 && image != null)
+        {
             val vehicule = AppDatabaseHelper.getDatabase(this)
                 .VehiculeDAO()
                 .getVehicule(name,image,price,category)
-//            Log.d("tag", vehicule.name)
+
             if(vehicule == null)
             {
                 AppDatabaseHelper.getDatabase(this)
@@ -133,7 +132,7 @@ class MainActivity : AppCompatActivity()
             {
                 Toast.makeText(this,"Ce vehicule est déja présent dans vos Favoris", Toast.LENGTH_LONG).show()
             }
-
         }
     }
+
 }

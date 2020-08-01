@@ -9,8 +9,8 @@ import com.squareup.picasso.Picasso
 import fr.cours.madrental.R
 import kotlinx.android.synthetic.main.item_vehicule.*
 
-
-class DetailFragment : Fragment() {
+class DetailFragment : Fragment()
+{
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View?
@@ -23,19 +23,17 @@ class DetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val arguments = requireArguments()
-        val name = arguments.getString("name")
-        val price = arguments.getString("price")
+
+        name_fragment.text = arguments.getString("name")
+        price_fragment.text = arguments.getString("price")
+        category_fragment.text = arguments.getString("category")
+
         val image = arguments.getString("img")
-        val category = arguments.getString("category")
 
         Picasso.get()
             .load("http://s519716619.onlinehome.fr/exchange/madrental/images/$image")
             .fit()
             .centerCrop()
             .into(img)
-
-        name_fragment.text = name
-        price_fragment.text = price
-        category_fragment.text = category
     }
 }

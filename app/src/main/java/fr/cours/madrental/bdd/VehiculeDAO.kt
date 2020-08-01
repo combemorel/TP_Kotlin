@@ -14,9 +14,4 @@ abstract class VehiculeDAO
     @Insert
     abstract fun insert(vararg vehicules: VehiculeDTO)
 
-    @Update
-    abstract fun update(vararg vehicules: VehiculeDTO)
-
-    @Delete
-    abstract fun delete(vararg vehicules: VehiculeDTO)
 }

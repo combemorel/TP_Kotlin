@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "07ee40d66c83a0afbbd21a0002f7d2cc",
+    "identityHash": "475fd94c1a3f3d2b104258dfd88bf4ba",
     "entities": [
       {
         "tableName": "vehicules",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vehiculeId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `image` TEXT NOT NULL, `price` INTEGER NOT NULL, `category` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `image` TEXT NOT NULL, `price` INTEGER NOT NULL, `category` TEXT NOT NULL)",
         "fields": [
           {
-            "fieldPath": "vehiculeId",
-            "columnName": "vehiculeId",
+            "fieldPath": "id",
+            "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -41,7 +41,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "vehiculeId"
+            "id"
           ],
           "autoGenerate": true
         },
@@ -52,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '07ee40d66c83a0afbbd21a0002f7d2cc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '475fd94c1a3f3d2b104258dfd88bf4ba')"
     ]
   }
 }

@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "vehicules")
 class VehiculeDTO (
+
     @PrimaryKey(autoGenerate = true)
-    val vehiculeId: Long = 0,
+    val id: Long = 0,
     val name: String = "",
     val image: String = "",
     val price: Int = 0 ,

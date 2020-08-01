@@ -2,20 +2,21 @@ package fr.cours.madrental
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import fr.cours.madrental.bdd.AppDatabaseHelper
 import fr.cours.madrental.bdd.VehiculeDTO
 import fr.cours.madrental.fragments.DetailFragment
-import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
+    private var name: String = ""
+    private var price: Int = 0
+    private var category: String = ""
+    private var image: String = ""
 
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
@@ -25,29 +26,24 @@ class DetailActivity : AppCompatActivity() {
         transaction.replace(R.id.conteneur_fragment, fragment, "fragment")
         transaction.commit()
 
-        val name = intent.getStringExtra("textViewNameVehicule")
-        val image = intent.getStringExtra("img")
-        val price = intent.getIntExtra("textViewPriceVehicule",0)
-        val category = intent.getStringExtra("textViewCategoryVehicule")
-
+        name = intent.getStringExtra("textViewNameVehicule")!!
+        image = intent.getStringExtra("img")!!
+        price = intent.getIntExtra("textViewPriceVehicule",0)
+        category = intent.getStringExtra("textViewCategoryVehicule")!!
 
         val bundle = Bundle()
         bundle.putString("name", "Nom : $name")
         bundle.putString("price", "Prix : $price € / jour")
         bundle.putString("category", "Catégorie CO2 : $category")
-        bundle.putString("img", "$image")
+        bundle.putString("img", image)
+
         fragment.arguments = bundle
-
-
     }
-    fun insertFavori(view : View?)
-    {
-        val name = intent.getStringExtra("textViewNameVehicule")
-        val image = intent.getStringExtra("img")
-        val price = intent.getIntExtra("textViewPriceVehicule",0)
-        val category = intent.getStringExtra("textViewCategoryVehicule")
 
-        if(category != null && name != null && price != 0 && image != null) {
+    fun insertFavori(view: View)
+    {
+        if(category != "" && name != "" && price != 0 && image != "")
+        {
             val vehicule = AppDatabaseHelper.getDatabase(this)
                 .VehiculeDAO()
                 .getVehicule(name, image, price, category)
@@ -65,9 +61,6 @@ class DetailActivity : AppCompatActivity() {
         {
             Toast.makeText(this,"Un problème est survenue lors de l'envoie",Toast.LENGTH_LONG).show()
         }
-
-
     }
-
 
 }

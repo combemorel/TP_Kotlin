@@ -9,23 +9,24 @@
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="8dp"
+        android:padding="@dimen/size_8"
         app:layout_constraintBottom_toTopOf="@id/bottom"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/conteneur_fragment"
         />
+
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="@dimen/footer_70"
         app:layout_constraintTop_toBottomOf="@id/conteneur_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:gravity="center"
-        android:background="#e6e6e6"
+        android:background="@color/colorFooter"
 
         >
         <Button
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:onClick="insertFavori"
-            android:text="Ajouter au favoris"
+            android:text="@string/btn_add_favoris"
             />
     </LinearLayout>
 

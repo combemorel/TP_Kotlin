@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_8">8dp</dimen>
+    <dimen name="size_4">4dp</dimen>
+    <dimen name="textSize_21">20dp</dimen>
+    <dimen name="footer_70">70dp</dimen>
+    <dimen name="width_120">120dp</dimen>
+    <dimen name="height_80">80dp</dimen>
+</resources>
